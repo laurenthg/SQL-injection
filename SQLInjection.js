@@ -6,7 +6,11 @@ var session = require('express-session');
 
 var app = express();
 
-app.get('/log',function(req,res){
+app.get ( '/' , function ( req , res ) {
+	    res.sendFile(path.join(__dirname + '/index.html'));
+});
+
+app.post('/log',function(req,res){
     var username = req.body.username; 
     var password = req.body.password;
     var query = "SELECT secret FROM user where username = '" + username + "' and password = '" + password + "'";
@@ -18,14 +22,15 @@ app.get('/log',function(req,res){
     getLogin ( query, 
     function ( error , data ){
       if ( error == null )
-        res.render ( 'secret' , { secret: data});
+        res.send ('Your secret: data.secret');
+	  else if(!data)
+		res.redirect("/index.html#false");
       else
         res.render ( 'error' , { message : error }) ;
     })
 
   });
-console.log(secret);
 
-
+console.log("start 8080");
 app.listen(8080);
 
