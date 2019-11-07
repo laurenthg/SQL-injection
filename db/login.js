@@ -7,6 +7,7 @@ var db = pgp(dbconfig)
 getLogin = function getLogin(SQLQuery,callback ) {
     db.any ( SQLQuery, null )
       .then ( function( data ) {
+		  console.log("data");
           callback (null,data ) ;
       })
     .catch ( function(error ) {

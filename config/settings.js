@@ -2,9 +2,9 @@
 var settings = {
     host: 'localhost',
     port: 5432,
-    database: 'laurenthg',
-    user: 'Laurent'
-    //password: ''
+	database: 'laurent',
+    user: 'laurent',
+    password: 'laurent'
 };
 
 module.exports = {
