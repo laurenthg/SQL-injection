@@ -15,6 +15,10 @@ app.get ( '/' , function ( req , res ) {
 	    res.sendFile(path.join(__dirname + '/index.html'));
 });
 
+app.get ( '/signUp' , function ( req , res ) {
+	    res.sendFile(path.join(__dirname + '/signUp.html'));
+});
+
 app.post('/log',function(req,res){
     var username = req.body.username; 
     console.log("username: " + username);
@@ -36,14 +40,42 @@ app.post('/log',function(req,res){
 		console.log(data[0]);
 		if (data[0]==undefined)  
 			res.sendFile(path.join(__dirname + '/indexFalse.html'));
-		else 
-			res.send ('Your secret:'+  data[0].secret+ '<p><a href=http://localhost:8080>Go back to login</a></p>)');
+		else{ 
+			var decipherText = simpleCrypto.decrypt(data[0].secret);
+			res.send ('Your secret:'+  decipherText+ '<p><a href=http://localhost:8080>Go back to login</a></p>)');
+		}	
 	  }	  
       else
 		res.json({error:error});
     })
 
   });
+
+app.post('/signUp',function(req,res){
+    var username = req.body.username; 
+    console.log("username: " + username);
+    var password = req.body.password;
+    console.log("password: " + password);
+	var hashUsername = sha256.create();
+	hashUsername.update(username);
+    console.log("username hash: " + hashUsername);
+	var hashPassword = sha256.update(password);
+    console.log("password hash: " + hashPassword);
+	var secret = req.body.secret;
+	var hashSecret = simpleCrypto.encrypt(secret);
+	var query  = "INSERT INTO LOGINCRYPTO(username,password,secret) VALUES ('"+hashUsername +"','"+hashPassword+"','"+hashSecret+"')";
+	
+	console.log('query: ' + query);
+    
+    insertLogin(query,function(error,data){
+		if(error !=null){
+			res.json({error:error});
+		}
+		else {
+			res.sendFile(path.join(__dirname + '/index.html'));
+		}	
+	})
+});
 
 console.log("start 8080");
 app.listen(8080);
