@@ -1,0 +1,8 @@
+= SQL injection demo and prevention with hash
+
+== Set up
+
+* npm install 
+* create a PostgreSQL database
+* update the config/setting.js file 
+* *cat init.sql | psql -U <login> -h <host> <database name>* to initialize your database
