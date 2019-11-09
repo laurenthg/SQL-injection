@@ -59,8 +59,12 @@ app.post('/log',function(req,res){
 			password: password
 		}
 	}).then((data)=> {
-	console.log(data);
-	res.send ('Your secret:'+  data[0].secret+ '<p><a href=http://localhost:8080>Go back to login</a></p>)');
+		if (data[0] == undefined)
+ 			res.sendFile(path.join(__dirname + '/indexFalse.html'));
+		else{
+			console.log(data);
+			res.send ('Your secret:'+  data[0].secret+ '<p><a href=http://localhost:8080>Go back to login</a></p>)');
+		}	
 }).catch((err)=>{
 	console.log(err);
 });

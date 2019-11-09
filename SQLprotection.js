@@ -20,10 +20,6 @@ app.post('/log',function(req,res){
     console.log("username: " + username);
     var password = req.body.password;
     console.log("password: " + password);
-    //var query = "SELECT secret FROM LOGIN where username ='" + username + "' and password ='" + password+"'";
-    var query = "SELECT secret FROM LOGIN where username ='" + username + "' and password ='" + password+"'";
-    console.log('query: ' + query);
-
     getLogin ( username, password,
     function ( error , data ){
       if ( error == null ){
