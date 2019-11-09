@@ -45,8 +45,9 @@ var _saniString = function (val) {
 app.post('/log',function(req,res){
     var username = _saniString(req.body.username);
     console.log("username: " + username);
-    var password = _saniString(req.body.password);
-    console.log("password: " + password);
+	var passwordInitial = req.body.password;
+    console.log("password: " + passwordInitial);
+    var password = _saniString(passwordInitial);
 
     getLogin ( username, password,
     function ( error , data ){
