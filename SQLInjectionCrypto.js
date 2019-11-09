@@ -37,11 +37,11 @@ app.post('/log',function(req,res){
     getLogin ( query, 
     function ( error , data ){
       if ( error == null ){
-		console.log(data[0]);
 		if (data[0]==undefined)  
 			res.sendFile(path.join(__dirname + '/indexFalse.html'));
 		else{ 
 			var decipherText = simpleCrypto.decrypt(data[0].secret);
+			console.log("decipherText:"+  decipherText);
 			res.send ('Your secret:'+  decipherText+ '<p><a href=http://localhost:8080>Go back to login</a></p>)');
 		}	
 	  }	  
