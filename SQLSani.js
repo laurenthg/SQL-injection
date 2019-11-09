@@ -1,6 +1,6 @@
 var express = require('express');
 var path = require('path');
-var db = require('./db/login.js');
+var db = require('./db/loginSani.js');
 var app = express();
 var session = require('express-session');
 var bodyParser = require('body-parser');
@@ -47,9 +47,6 @@ app.post('/log',function(req,res){
     console.log("username: " + username);
     var password = _saniString(req.body.password);
     console.log("password: " + password);
-    //var query = "SELECT secret FROM LOGIN where username ='" + username + "' and password ='" + password+"'";
-    var query = "SELECT secret FROM LOGIN where username ='" + username + "' and password ='" + password+"'";
-    console.log('query: ' + query);
 
     getLogin ( username, password,
     function ( error , data ){

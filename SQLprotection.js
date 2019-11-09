@@ -1,6 +1,6 @@
 var express = require('express');
 var path = require('path');
-var db = require('./db/login.js');
+var db = require('./db/loginprotection.js');
 var app = express();
 var session = require('express-session');
 var bodyParser = require('body-parser');
@@ -42,9 +42,6 @@ app.post('/signUp',function(req,res){
     console.log("password: " + password);
 	var secret = req.body.secret;
     console.log("secret: " + secret);
-	var query  = "INSERT INTO LOGIN(username,password,secret) VALUES ('"+username +"','"+password+"','"+secret+"')";
-
-	console.log('query: ' + query);
 
     insertLogin(query,function(error,data){
 		if(error !=null){
