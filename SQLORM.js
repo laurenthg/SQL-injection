@@ -58,10 +58,12 @@ app.post('/log',function(req,res){
 			password: password
 		}
 	}).then((data)=> {
-		if (data[0] == undefined)
+		if (data[0] == undefined){
+			console.log("Fail to login");
  			res.sendFile(path.join(__dirname + '/indexFalse.html'));
+		}	
 		else{
-			console.log(data);
+			console.log("Succeed to login");
 			res.send ('Your secret:'+  data[0].secret+ '<p><a href=http://localhost:8080>Go back to login</a></p>)');
 		}	
 }).catch((err)=>{
