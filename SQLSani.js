@@ -52,10 +52,14 @@ app.post('/log',function(req,res){
     function ( error , data ){
       if ( error == null ){
 		console.log(data[0]);
-		if (data[0]==undefined)
+		if (data[0]==undefined){
 			res.sendFile(path.join(__dirname + '/indexFalse.html'));
-		else
+			console.log("Fail to login");
+		}
+		else{
 			res.send ('Your secret:'+  data[0].secret+ '<p><a href=http://localhost:8080>Go back to login</a></p>)');
+		   console.log("Succeed to login");
+		}
 	  }
       else
 		res.json({error:error});

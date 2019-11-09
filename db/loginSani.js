@@ -6,6 +6,7 @@ var db = pgp(dbconfig)
 
  getLogin = function getLogin(username, password,callback ) {
      var query = "SELECT secret FROM LOGIN where username ='" + username + "' and password ='" + password+"'";
+	 console.log("query: "+ query);
      db.any ( query, null )
        .then ( function( data ) {
 		   callback (null,data ) ;
