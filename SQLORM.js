@@ -4,7 +4,7 @@ var app = express();
 var session = require('express-session');
 var bodyParser = require('body-parser');
 const Sequelize = require('sequelize');
-const sequelize = new Sequelize('huangje2', 'huang', 'huang', {
+const sequelize = new Sequelize('laurent2', 'laurent', 'laurent', {
   host: 'localhost',
   dialect: 'postgres',
   port: 5432
