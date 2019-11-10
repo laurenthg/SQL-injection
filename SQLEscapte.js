@@ -1,6 +1,6 @@
 var express = require('express');
 var path = require('path');
-var db = require('./db/login.js');
+var db = require('./db/loginSani.js');
 var app = express();
 var session = require('express-session');
 var bodyParser = require('body-parser');
@@ -43,22 +43,25 @@ var _escapeString = function (val) {
 };
 
 app.post('/log',function(req,res){
-    var username = _escapeString(req.body.username);
+	var username = req.body.username;
+    var usernameEscape = _escapeString(username);
     console.log("username: " + username);
-    var password = _escapeString(req.body.password);
+	var password = req.body.password;
+    var passwordEscape = _escapeString(password);
     console.log("password: " + password);
-    //var query = "SELECT secret FROM LOGIN where username ='" + username + "' and password ='" + password+"'";
-    var query = "SELECT secret FROM LOGIN where username ='" + username + "' and password ='" + password+"'";
-    console.log('query: ' + query);
 
-    getLogin ( username, password,
+    getLogin ( usernameEscape, passwordEscape,
     function ( error , data ){
       if ( error == null ){
 		console.log(data[0]);
-		if (data[0]==undefined)
+		if (data[0]==undefined){
 			res.sendFile(path.join(__dirname + '/indexFalse.html'));
-		else
+		    console.log("Fail to log");
+		}
+		else{
 			res.send ('Your secret:'+  data[0].secret+ '<p><a href=http://localhost:8080>Go back to login</a></p>)');
+		    console.log("Success to log");
+		}
 	  }
       else
 		res.json({error:error});
